@@ -1,0 +1,46 @@
+# Baseline Run: YOLOv8n, 50 Epochs, Simple Training
+yolo detect train \
+data="data/Initial_Data/data.yaml" \
+model=yolov8n.pt \
+epochs=50 \
+imgsz=640 \
+name=baseline_run
+
+
+
+# SOTA Run: YOLOv8m, 150 Epochs, Aggressive Augmentation, Hierarchical Classes
+
+yolo detect train data="data/Ultimate_Data/data.yaml" model=yolov8m.pt epochs=150 imgsz=512 name=final_sota_150epochs batch=16 augment=True hsv_h=0.015 hsv_s=0.7 hsv_v=0.4 fliplr=0.5 patience=25
+
+or:
+yolo detect train \
+data="data/Ultimate_Data/data.yaml" \
+model=yolov8m.pt \
+epochs=150 \
+imgsz=512 \
+name=final_sota_150epochs \
+batch=16 \
+augment=True \
+hsv_h=0.015 \
+hsv_s=0.7 \
+hsv_v=0.4 \
+fliplr=0.5 \
+patience=25
+
+
+
+Parameter,Value,Technical Justification
+
+model=yolov8m.pt,YOLOv8 Medium,Used the stronger architecture (25.9M params) to handle the complexity of the 22k image dataset.
+
+epochs=150,150,Extended training duration to allow the deep network to fully converge on the massive dataset.
+
+imgsz=512,512x512,"Matched the input image size to the Roboflow export resolution, optimizing data pipeline efficiency."
+
+augment=True,True,Enabled the built-in augmentation pipeline for real-time data diversity.
+
+hsv_h/s/v,0.015 / 0.7 / 0.4,"Photometric Augmentation. Used to simulate different lighting conditions (shadows, direct sun) to make the model robust against weather and time-of-day changes."
+
+fliplr=0.5,0.5,Geometric Augmentation. Randomly flips the image to double the effective training data and prevent the model from learning directional bias.
+
+patience=25,25,Implemented Early Stopping to prevent wasting GPU time if the model stopped improving before the 150-epoch limit.
