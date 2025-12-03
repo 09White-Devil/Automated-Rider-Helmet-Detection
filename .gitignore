@@ -8,7 +8,6 @@
 *.pt
 
 # Ignore training runs and large data directories
-/runs/
 /data/
 
 # Ignore temporary files
