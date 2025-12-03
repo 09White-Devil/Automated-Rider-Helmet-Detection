@@ -5,10 +5,12 @@
 
 # Ignore large model files and logs
 # We will manually add only the small final best.pt
-*.pt
+
 
 # Ignore training runs and large data directories
 /data/
+
+
 
 # Ignore temporary files
 __pycache__/
